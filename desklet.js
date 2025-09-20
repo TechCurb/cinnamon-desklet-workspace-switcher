@@ -5,7 +5,7 @@ const Lang = imports.lang;
 const Settings = imports.ui.settings;
 const Mainloop = imports.mainloop;
 
-const uuid = "workspace-grid-desklet@cinnamon-docs";
+const uuid = "workspace-grid-desklet@curb.software";
 
 function MyDesklet(metadata, deskletId) {
     this._init(metadata, deskletId);

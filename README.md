@@ -1,89 +1,85 @@
-# Workspace Grid Desklet
+# Cinnamon Desklet Workspace Grid
 
-A Cinnamon desklet that displays a clickable grid of workspaces with their names, and highlights the active workspace. Clicking a tile switches to that workspace. The grid auto-sizes and can be configured as auto near-square or fixed rows/cols.
+A Cinnamon desklet that displays a **clickable grid of workspaces**, shows workspace names, and highlights the active workspace.  
+This makes it useful for quickly navigating and organizing your desktop environments.
 
-- UUID: `workspace-grid-desklet@cinnamon-docs`
-- Does not manage workspace count/layout (reflect-only)
-- Uses Cinnamon Settings for configurable options
+![screenshot placeholder](icon.png)
 
-## Features
+---
 
-- Auto near-square grid layout (default) or fixed rows/cols
-- Labels show workspace names with an index fallback
-- Active workspace highlighted with a border (outlined pseudo-class)
-- Optional scroll-to-switch (by row or by column)
-- Resizes tiles automatically when the desklet is resized
-- Minimal, theme-friendly styling
+## ✨ Features
 
-## Installation (local)
+- 🖥️ Displays a workspace grid directly on the desktop.
+- 🖱️ Click any workspace in the grid to switch to it.
+- 🏷️ Shows workspace names, with an option to prefix with an index number.
+- 🎨 Highlights the currently active workspace.
+- ⚙️ All settings configurable via **Cinnamon Desklet settings**.
 
-1) Copy folder into your Cinnamon desklets directory:
-- `~/.local/share/cinnamon/desklets/workspace-grid-desklet@cinnamon-docs`
+---
 
-2) If developing from this repository (with the docs project as root), you can symlink:
-- `ln -s "$(pwd)/desklets/workspace-grid-desklet@cinnamon-docs" ~/.local/share/cinnamon/desklets/`
+## ⚙️ Installation
 
-3) In Cinnamon Settings > Desklets:
-- Enable the Workspace Grid desklet.
-- Right-click on the desklet > Configure to adjust settings.
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/TechCurb/cinnamon-desklet-workspace-switcher.git
+   ```
+2. Copy the folder into your local Cinnamon desklets directory:
+   ```bash
+   cp -r cinnamon-desklet-workspace-switcher/ ~/.local/share/cinnamon/desklets/workspace-grid-desklet@curb.software
+   ```
+3. Right-click your desktop → **Add Desklets** → Find **Workspace Grid** and add it.  
 
-No restart is typically required; Cinnamon will reload desklet resources after changes.
+**Or**
 
-## Settings
+## ⚙️ Simpler Installation (load without modifications)
+Clone the repo into your local Cinnamon desklets directory:
+   ```bash
+   git clone https://github.com/TechCurb/cinnamon-desklet-workspace-switcher.git ~/.local/share/cinnamon/desklets/workspace-grid-desklet@curb.software
+   ```
 
-- Grid layout mode (Auto near-square | Fixed rows x cols)
-- Fixed rows and columns (when Fixed mode is selected)
-- Labels: Prefix with index (if name is unavailable, index is the fallback anyway)
-- Scroll wheel behavior: Off (default), By column, By row
-- Tile spacing (px)
+---
 
-## Behavior Notes
+## 🛠️ Configuration
 
-- The desklet does not modify the system’s workspace count or layout. It visualizes and switches among the workspaces defined by Cinnamon.
-- Workspace names are read from the workspace, when available. If no name exists, a fallback like "Workspace 1" is used.
+You can configure this desklet from the **Cinnamon Desklet settings panel**, which uses [`settings-schema.json`](settings-schema.json) for all definitions.  
 
-## Styling
+### Available options:
+- **Layout Mode**: Choose between `auto` (near-square) or `fixed` (rows x cols).
+- **Fixed Rows/Columns**: Set the number of rows and columns for the grid in fixed mode.
+- **Show Index**: Prefix workspace names with their index number (e.g., "1. Web").
+- **Scroll Wheel Behavior**: Use the scroll wheel to switch workspaces by row or column.
+- **Style & Layout**: Adjust tile spacing, and desklet width/height via the settings panel.
 
-The desklet uses `stylesheet.css` in this directory. Key classes:
-- `.workspace-grid-container`
-- `.workspace-grid-table`
-- `.workspace-button`
-- `.workspace-button:outlined` (active workspace)
-- `.workspace-label`
+---
 
-You can customize colors, border, and spacing in the CSS. Inline margins are applied per button to honor the "Tile spacing" setting.
+## 🔄 Restart Cinnamon After Edits
 
-## Development Overview
+If manual edits are done to files, Cinnamon may need to restart:  
+- Press **Alt + F2**, type `r`, then **Enter**  
+_or_  
+- Run in terminal:  
+  ```bash
+  cinnamon --replace & disown
+  ```
 
-- `desklet.js` initializes settings, builds a St.Table of tiles, binds events for workspace switching and updates on:
-  - workspace switch
-  - workspace add/remove
-  - settings changes
-  - desklet allocation/resize
-- Click a tile to call `workspace.activate(global.get_current_time())`.
-- Active tile gets the `outlined` pseudo-class (styled in CSS).
+---
 
-## References and Inspirations
+## 📂 Project Structure
 
-- Cinnamon Settings API usage inspired by the example desklet:
-  - example: commandResult desklet (for DeskletSettings pattern)
-- Workspace grid click and highlight logic inspired by the example applet:
-  - example: workspace-grid applet (for GridStyle patterns)
+- [`desklet.js`](desklet.js) — main desklet logic.
+- [`settings-schema.json`](settings-schema.json) — defines metadata and settings schema.
+- [`stylesheet.css`](stylesheet.css) — styling overrides.
+- [`metadata.json`](metadata.json) — basic desklet metadata.
 
-## Testing Checklist
+---
 
-- Multiple workspace counts
-- Workspace rename (labels update)
-- Add/remove workspaces (grid rebuilds)
-- Desklet resize (tiles reflow)
-- Toggle settings: layout mode, rows/cols, scroll behavior, spacing
-- Active highlight follows current workspace
+## 🙌 Credits
 
-## Known Limitations
 
-- Workspace name change signal support varies by Cinnamon versions. Names refresh on switches and rebuilds.
-- The desklet does not enforce or change grid layout at the WM level (by design).
+- Author: [Cinnamon Docs](https://github.com/TechCurb)
 
-## License
+---
 
-GPL-2.0-or-later (matches Cinnamon xlet conventions).
+## 📜 License
+
+This project is licensed under the GPLv2+ license.
